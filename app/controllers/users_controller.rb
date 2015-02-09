@@ -14,6 +14,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if user = User.find(params[:id])
+      user.destroy
+      flash[:notice] = "User deleted"
+      flash[:color]= "valid"
+    end
     redirect_to :root
   end
 
