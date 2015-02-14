@@ -1,14 +1,16 @@
 class UsersController < ApplicationController
 
-  def create
-    user = User.new(user_params)
+  def new
+    @user = User.new
+  end
 
-    if user.save
-      flash[:notice] = "You Signed up successfully"
-      flash[:color]= "valid"
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      flash.notice = "You signed up successfully"
     else
-      flash[:notice] = "Form is invalid"
-      flash[:color]= "invalid"
+      flash.alert = "Form is invalid"
     end
     redirect_to :root
   end
@@ -16,8 +18,7 @@ class UsersController < ApplicationController
   def destroy
     if user = User.find(params[:id])
       user.destroy
-      flash[:notice] = "User deleted"
-      flash[:color]= "valid"
+      flash.notice = "User deleted"
     end
     redirect_to :root
   end
